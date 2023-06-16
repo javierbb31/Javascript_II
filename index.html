@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>Consulta de Clima</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+        .tabla-class-clima {
+            border-collapse: collapse;
+            position: absolute;
+            left: 50%;
+            top: 70%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            border-spacing: 0;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(32, 32, 32, .3);
+            background: #fafafa;
+            text-align: center;
+        }
+
+        .tabla-detalles{
+            padding-left: 30px;
+            width: 550px;
+        }
+
+        .th-detalles{
+            background: #fafafa;
+        }
+
+        tr:nth-child(odd){
+            background-color: #eeeeee;
+        }
+
+        .th-clima {
+            background: #d4a9de;
+            color: #fafafa;
+            text-transform: uppercase;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        td {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        th, td {
+            padding: 8px;
+        }
+
+        body{
+            background-color: #121212;
+            height: 100vh;
+            width: 100%;
+            /*display: flex;*/
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(./images/background.jpeg);
+            background-position: center;
+            background-size: cover;
+        }
+
+        .container-page{ 
+            height: 50vh;
+            width: 30vw;
+            border-radius: 20px;
+            /*display: flex;*/
+            position: absolute;
+            top: 8%;
+            left: 30%;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            transition: all 0.8s;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid white;
+            backdrop-filter: blur(10px);
+        }
+
+        .button-consult{
+            width: 100%;
+            height: 45px;
+            border-radius: 55px;
+            background: rgba(255, 255, 255, 0.137);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border: none;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .input-line{
+            width: 100%;
+            height: 30px;
+            background-color: transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 2px solid #CBCBCB;
+            outline: none;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        h1{
+            color: white;
+            font-size: 30px;
+            padding:25px 108px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        } 
+
+        .h1-detalles{
+            color: rgb(6, 5, 5);
+            font-size: 20px;
+        }
+
+        label {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color: rgb(37, 29, 29);
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .container h1 {
+            color: #fff;
+            font-size: 36px;
+            margin-bottom: 40px;
+
+        }
+
+        .button{
+            background: #fff;
+
+        }
+
+        .popup{
+            background: rgba(0,0,0,0.6);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .popup-content{
+            height: 550px;
+            width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            position: relative;
+            border: 8px solid black;
+        }
+
+        .close{
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #fff;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            box-shadow: 6px 6px 29px -4px rgba(0,0,0,0.75);
+            cursor: pointer;
+
+        }
+
+        .imagen-detalles {
+            height: 200px;
+            width: 200px;
+        }
+
+
+    </style>
+    
+</head>
+<body>
+    <div class="container-page" id="container">
+        <h1>Consulta de Clima</h1>
+        <div>
+            <label for="ciudad">Ciudad :</label>
+        </div>
+        <div>
+            <input class="input-line" type="text" id="ciudad">
+            <button class="button-consult" onclick="consultarClima()">Consultar</button>
+        </div>
+        
+        <div>
+            <label for="ciudades">Ciudades:</label>
+        </div>
+        <div>
+            <input class="input-line" type="text" id="ciudades" value="London, Paris, Berlin">
+            <button class="button-consult" onclick="consultarClimas()">Consultar</button>
+        </div>
+        <div>
+            <button class="button-consult" onclick="limpiarTabla()">Limpiar</button>
+        </div>
+
+    </div>
+
+   <div>
+    <table class="tabla-class-clima" id="tabla-clima">
+      <thead>
+        <tr>
+          <th class="th-clima">Ciudad</th>
+          <th class="th-clima">Temperatura</th>
+          <th class="th-clima">Descripción</th>
+          <th class="th-clima">Detalles</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="popup">
+        <div class="popup-content">
+            <h1 class="h1-detalles">Detalles Clima</h1>
+            <img src="./images/close.png" alt="Close" class="close">
+            <table id="tabla-detalles">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr class="th-detalles">
+                        <th>Name:</th>
+                        <td id="nombre"></td>
+                    </tr>
+                    <tr class="th-detalles">
+                        <th>Descripcion:</th>
+                        <td id="descripcion"></td>
+                    </tr>
+                    <tr class="th-detalles">
+                        <th>Temp Max:</th>
+                        <td id="temp_max"></td>
+                    </tr>
+                    <tr class="th-detalles">
+                        <th>Temp Min:</th>
+                        <td id="temp_min"></td>
+                    </tr>
+                    <tr class="th-detalles">
+                        <th>Presion:</th>
+                        <td id="presion"></td>
+                    </tr>
+                    <tr class="th-detalles">
+                        <th>Humedad:</th>
+                        <td id="humedad"></td>
+                    </tr>
+                </tbody>
+              </table>
+              <img src="./images/clima.png" alt="" class="imagen-detalles">
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        document.querySelector(".close").addEventListener("click", function(){
+            document.querySelector(".popup").style.display = "none";
+        })
+    </script>
+    <script src="./js/script.js"></script>    
+</body>
+</html>
